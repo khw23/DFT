@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#PBS -N test
+#PBS -q main1 
+#PBS -l nodes=1:ppn=12
+#PBS -l walltime=48:00:00
+#PBS -S /bin/bash
+#PBS -V
+
+
+#echo $PBS_O_WORKDIR
+#cd ~/docs/test/10
+cd $PBS_O_WORKDIR
+
+echo Time is `date`
+echo Directory is $PWD
+master=`hostname`
+echo "The job submission node is $master"
+
+ulimit -s unlimited 
+mpirun /public/SOFC/share/khw/vasp.5.4.4/bin/vasp_relax_ab>job.log 
